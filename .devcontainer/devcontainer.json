@@ -1,0 +1,87 @@
+{
+	"name": "Testing Website Environment", // insert name here
+	// "image": "python:3.13", // backup for when below doesn't work.
+	"image": "python:latest", // should use the latest stable version
+	"hostRequirements": {
+		"cpus": 4
+	},
+	"waitFor": "updateContentCommand", // Wait for this command to complete before starting the container
+	"initializeCommand": "docker pull python:latest", // Runs on the host before the container is created
+	"onCreateCommand": "apt-get update && python -m pip install --upgrade pip --root-user-action ignore", // Runs inside the container when it's first created
+	"updateContentCommand": "apt-get update && apt-get upgrade -y && apt-get autoremove -y", // Runs when the container content is updated
+	// "updateContentCommand": "apt-get update && apt-get autoremove -y", // Runs when the container content is updated
+	"postCreateCommand": "pip install -r requirements.txt --root-user-action ignore", // Runs after the container is created and started; typically used to install python packages
+	"postStartCommand": "pip install -r requirements.txt --quiet --upgrade --root-user-action ignore", // Runs every time the container starts; or could be to update python packages with the `--quiet` flag
+	"postAttachCommand": "echo \"Testing Website Environment Ready! $(python --version) available.\"", // Runs when you attach/connect to the container
+	// "portsAttributes": {
+	// 	"5000": {
+	// 		"label": "Application",
+	// 		"requireLocalPort": true
+	// 	},
+	// 	"4000": {
+	// 		"label": "API",
+	// 		"requireLocalPort": true
+	// 	}
+	// },
+	// "forwardPorts": [5000, 4000], // Ports to forward from the container to the host
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"files.autoSave": "onFocusChange",
+				"editor.formatOnPaste": true,
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter"
+				},
+				"[xml]": {
+					"editor.defaultFormatter": "redhat.vscode-xml"
+				},
+				"editor.fontSize": 14,
+				"terminal.integrated.defaultProfile.windows": "Git Bash",
+				"window.restoreWindows": "preserve",
+				"workbench.editorAssociations": {
+					"*.md": "vscode.markdown.preview.editor"
+				},
+				"editor.tabSize": 4,
+				"editor.insertSpaces": true,
+				"terminal.integrated.cursorStyle": "underline",
+				"terminal.integrated.cursorBlinking": true
+			},
+			"extensions": [
+				"McCarter.start-git-bash",
+				"yy0931.vscode-sqlite3-editor",
+				"ecmel.vscode-ds",
+				"ms-vscode.js-debug",
+				"dbaeumer.vscode-eslint",
+				"miramac.vscode-exec-node",
+				"oderwat.indent-rainbow",
+				"ms-vscode-remote.remote-containers",
+				"GitHub.codespaces",
+				"ms-vscode-remote.remote-wsl",
+				"EchoAPI.echoapi-for-vscode",
+				"esbenp.prettier-vscode",
+				"ms-python.black-formatter",
+				"ms-python.python",
+				"ms-python.debugpy",
+				"tomoki1207.pdf",
+				"njpwerner.autodocstring",
+				"mgesbert.python-path",
+				"eamodio.gitlens",
+				// "wakatime.vscode-wakatime",
+				"yahyabatulu.vscode-markdown-alert",
+				"bierner.markdown-preview-github-styles",
+				"ms-toolsai.jupyter",
+				"mechatroner.rainbow-csv",
+				"ms-python.pylint",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"ms-toolsai.vscode-jupyter-slideshow",
+				"ms-python.vscode-python-envs",
+				"iliazeus.vscode-ansi",
+				"ms-vscode.notepadplusplus-keybindings",
+				"redhat.vscode-xml"
+			]
+		}
+	}
+}

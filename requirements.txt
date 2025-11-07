@@ -1,0 +1,19 @@
+# Flask stuff
+flask
+flask-sqlalchemy
+flask-migrate
+flask-wtf
+wtforms
+flask-login
+bootstrap-flask
+flask-caching
+flask-limiter
+flask-talisman
+# flask-admin # not sure if this is needed yet
+
+# Security stuff
+argon2-cffi
+authlib
+
+# Others
+python-dotenv
